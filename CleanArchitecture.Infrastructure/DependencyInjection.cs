@@ -3,6 +3,8 @@ using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Infrastructure.Identity;
 using CleanArchitecture.Infrastructure.Identity.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Identity.Implementations.Services;
+using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
+using CleanArchitecture.Infrastructure.Identity.Interfaces.Services;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,10 +26,12 @@ public static class DependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAuthRepository, AuthRepository>();  
     }
     private static void AddServices(IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
     }
     private static void AddDbContext(IServiceCollection services)
     {
