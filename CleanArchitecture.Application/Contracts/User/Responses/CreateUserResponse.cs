@@ -8,6 +8,6 @@ namespace CleanArchitecture.Application.Contracts.User.Responses
 {
     public class CreateUserResponse
     {
-        public int ids { get; set; }
+        public Guid id { get; set; }
     }
 }
