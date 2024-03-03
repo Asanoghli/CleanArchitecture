@@ -4,6 +4,7 @@ using CleanArchitecture.Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanArchitecture.Infrastructure.Migrations
 {
     [DbContext(typeof(CleanArchitectureDbContext))]
-    partial class CleanArchitectureDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240303152534_BaseEntity_CreatedAt_Default_Value_Setted")]
+    partial class BaseEntity_CreatedAt_Default_Value_Setted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace CleanArchitecture.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 3, 3, 15, 45, 23, 519, DateTimeKind.Utc).AddTicks(7201));
+                        .HasDefaultValue(new DateTime(2024, 3, 3, 15, 25, 34, 533, DateTimeKind.Utc).AddTicks(6814));
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");

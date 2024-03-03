@@ -7,10 +7,10 @@ namespace CleanArchitecture.Presentation.Controllers;
 
 public class UsersController(IUserService userService) : ControllerBase
 {
-    [HttpGet("users")]
-    [Authorize]
-    public async Task<IActionResult> Index(CreateUserRequest request)
+    [HttpPost("users")]
+    public async Task<IActionResult> Index([FromBody]CreateUserRequest request)
     {
+        
         var response = await userService.CreateUserAsync(request);
         return Ok(response);
     }

@@ -7,6 +7,7 @@ namespace CleanArchitecture.Infrastructure.Identity.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public ICollection<AppUserContact> Contacts { get; set; }
+        public ICollection<AppUserContact>? Contacts { get; set; }
+
     }
 }

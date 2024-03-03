@@ -4,8 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories
 {
-    public class GenericRepository<T>(CleanArchitectureDbContext dbContext) : IGenericRepository<T> where T : class, new()
+    public class GenericRepository<T>(CleanArchitectureDbContext dbContext) : IGenericRepository<T> where T : class
     {
+        public async Task CommitAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+
         public async Task Create(T entity)
         {
             await dbContext.Set<T>().AddAsync(entity);
@@ -32,5 +37,7 @@ namespace CleanArchitecture.Infrastructure.Implementations.Repositories
         {
             dbContext.Set<T>().Update(entity);
         }
+    
+    
     }
 }
