@@ -8,5 +8,9 @@ namespace CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories
         IUserRepository userRepository { get; }
         IAuthRepository authRepository { get; }
         Task Save();
+        Task BeginTransactin();
+        Task CommitTransaction();
+        Task RollBackTransaction();
+        Task SaveChangesAsync();
     }
 }
