@@ -1,16 +1,18 @@
 ﻿using CleanArchitecture.Application.Contracts.Auth.Requests;
 using CleanArchitecture.Application.Interfaces.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace CleanArchitecture.Presentation.Controllers;
 
 public class AuthController(IAuthService authService) : ControllerBase
 {
-    [HttpGet("login")]
-    public async Task<IActionResult> Login(LoginRequest loginRequest)
+    [HttpGet("{culture}/login")]
+    public async Task<IActionResult> Login(string culture)
     {
-        await authService.Login(loginRequest);
+        var response = await authService.ConfirmEmail("123",Guid.Empty);
 
-        return Ok();
+        return Ok(response);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Application.Contracts.User.Requests;
 using CleanArchitecture.Application.Contracts.User.Responses;
-using CleanArchitecture.Application.Interfaces.Responses;
+using CleanArchitecture.Common.Interfaces.Responses;
 
 namespace CleanArchitecture.Application.Interfaces.Services;
 

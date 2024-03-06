@@ -1,7 +1,6 @@
 ﻿using CleanArchitecture.Application.Contracts.Page.Requests;
 using CleanArchitecture.Application.Contracts.Page.Response;
-using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Application.Interfaces.Responses;
+using CleanArchitecture.Common.Interfaces.Responses;
 
 namespace CleanArchitecture.Application.Interfaces.Services;
 public interface IPageService

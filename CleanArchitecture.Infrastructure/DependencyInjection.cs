@@ -19,7 +19,6 @@ public static class DependencyInjection
         AddIdentity(services);
         AddUIW(services);
         AddServices(services);
-
         return services;
     }
     private static void AddUIW(IServiceCollection services)

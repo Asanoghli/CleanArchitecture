@@ -1,6 +1,4 @@
-﻿using CleanArchitecture.Common.Interfaces.Responses;
-
-namespace CleanArchitecture.Application.Interfaces.Responses;
+﻿namespace CleanArchitecture.Common.Interfaces.Responses;
 
 public interface IResponse<T>
 {

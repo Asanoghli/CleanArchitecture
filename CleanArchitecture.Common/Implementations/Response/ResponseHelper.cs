@@ -1,15 +1,28 @@
-﻿using CleanArchitecture.Application.Interfaces.Responses;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿
+using CleanArchitecture.Common.Interfaces.Responses;
 
-namespace CleanArchitecture.Infrastructure.Implementations.Response;
-
+namespace CleanArchitecture.Common.Implementations.Response;
 public static class ResponseHelper<T>
 {
-    public static IResponse<T> Failed(IEnumerable<IError> errors)
+    public static IResponse<T> Failed(IError[] errors)
     {
         var response = new Response<T>();
         response.errors = errors;
+
+        return response;
+    }
+    public static IResponse<T> Failed(IError error)
+    {
+        var response = new Response<T>();
+        response.errors = new IError[] {error};
+
+        return response;
+    }
+    public static IResponse<T> Failed(IError error,string message)
+    {
+        var response = new Response<T>();
+        response.errors = new IError[] { error };
+        response.message = message;
 
         return response;
     }

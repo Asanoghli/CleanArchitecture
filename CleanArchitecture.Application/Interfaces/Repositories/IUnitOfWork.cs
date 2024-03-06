@@ -1,5 +1,5 @@
 ﻿namespace CleanArchitecture.Application.Interfaces.Repositories;
-public interface IUnitOfWork
+public interface IUnitOfWork:IDisposable
 {
     IPagesRepository pagesRepository { get; }
     IUserRepository userRepository { get; }

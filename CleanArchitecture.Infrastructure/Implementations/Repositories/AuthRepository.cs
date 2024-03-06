@@ -28,10 +28,24 @@ public class AuthRepository(SignInManager<AppUser> signInManager, UserManager<Ap
     {
         var user = await userManager.FindByNameAsync(username);
 
-        return user;
+        return user!;
+    }
+    public async Task<AppUser> FindById(string Id)
+    {
+        var user = await userManager.FindByIdAsync(Id);
+
+        return user!;
     }
     public async Task SignOutAsync()
     {
         await signInManager.SignOutAsync();
     }
+    public async Task<IdentityResult> ConfirmEmail(string token,AppUser user)
+    {
+        var response = await userManager.ConfirmEmailAsync(user,token);
+
+        return response;
+    }
+
+
 }

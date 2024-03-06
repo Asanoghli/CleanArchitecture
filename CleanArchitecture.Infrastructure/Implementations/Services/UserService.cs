@@ -1,10 +1,10 @@
 ﻿using CleanArchitecture.Application.Contracts.User.Requests;
 using CleanArchitecture.Application.Contracts.User.Responses;
 using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Application.Interfaces.Responses;
 using CleanArchitecture.Application.Interfaces.Services;
+using CleanArchitecture.Common.Implementations.Response;
+using CleanArchitecture.Common.Interfaces.Responses;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Implementations.Response;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
 
@@ -30,7 +30,7 @@ public class UserService(IUnitOfWork unitOfWork) : IUserService
                 errorMessage = error.Description
             });
 
-            return ResponseHelper<CreateUserResponse>.Failed(errors);
+            return ResponseHelper<CreateUserResponse>.Failed(errors.ToArray());
         }
 
 
@@ -39,4 +39,6 @@ public class UserService(IUnitOfWork unitOfWork) : IUserService
 
         return ResponseHelper<CreateUserResponse>.Success(createUserResponse);
     }
+
+
 }

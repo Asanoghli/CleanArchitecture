@@ -3,6 +3,7 @@ using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Runtime.InteropServices;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
 public class UnitOfWork : IUnitOfWork
@@ -21,7 +22,7 @@ public class UnitOfWork : IUnitOfWork
 
     #region Private Fields
 
-
+    private bool isDisposed;
     private IDbContextTransaction _transaction = default!;
     private IPagesRepository _pagesRepository = default!;
     private IUserRepository _userRepository = default!;
@@ -75,6 +76,29 @@ public class UnitOfWork : IUnitOfWork
     public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    protected virtual void Dispose(bool disposing)
+    {
+        if (isDisposed) return;
+
+        if (disposing)
+        {
+            _authRepository = null!;
+            _signInManager = null!;
+            _userManager = null!;
+            _pagesRepository = null!;
+            _dbContext = null!;
+        }
+
+   
+
+        isDisposed = true;
     }
     #endregion
 }

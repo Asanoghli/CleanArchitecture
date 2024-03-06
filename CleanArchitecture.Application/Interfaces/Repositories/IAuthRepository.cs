@@ -9,5 +9,7 @@ public interface IAuthRepository
     Task Login(AppUser user, bool rememberMe = false);
     Task<AppUser> FindByUsername(string username);
     Task<AppUser> FindByEmail(string email);
+    Task<AppUser> FindById(string Id);
     Task SignOutAsync();
+    Task<IdentityResult> ConfirmEmail(string token, AppUser user);
 }

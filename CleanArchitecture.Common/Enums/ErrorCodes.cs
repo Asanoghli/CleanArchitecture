@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
-namespace CleanArchitecture.Common.Enums
+namespace CleanArchitecture.Common.Enums;
+public static class ErrorCodes
 {
-    public class ErrorCodes
-    {
-    }
+    public static string USER_NOT_FOUND = "UserNotFound";
 }
