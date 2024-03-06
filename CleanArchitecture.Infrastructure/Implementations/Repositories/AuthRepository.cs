@@ -1,15 +1,15 @@
-﻿using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
-using CleanArchitecture.Infrastructure.Identity.Models;
+﻿using CleanArchitecture.Application.Interfaces.Repositories;
+using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infrastructure.Identity.Implementations.Repositories;
+namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
 
-public class AuthRepository(SignInManager<AppUser> signInManager,UserManager<AppUser> userManager) : IAuthRepository
+public class AuthRepository(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : IAuthRepository
 {
-    public async Task<SignInResult> LoginWithPassword(AppUser user,string password,bool rememberMe)
+    public async Task<SignInResult> LoginWithPassword(AppUser user, string password, bool rememberMe)
     {
-       await userManager.AddPasswordAsync(user, password);
-       var result = await signInManager.PasswordSignInAsync(user, password, rememberMe,false);
+        await userManager.AddPasswordAsync(user, password);
+        var result = await signInManager.PasswordSignInAsync(user, password, rememberMe, false);
 
         return result;
     }

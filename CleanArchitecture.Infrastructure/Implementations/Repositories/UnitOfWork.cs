@@ -1,8 +1,6 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Identity.Implementations.Repositories;
-using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Infrastructure.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage;
 

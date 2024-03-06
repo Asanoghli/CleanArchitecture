@@ -1,6 +1,5 @@
-﻿using CleanArchitecture.Infrastructure.Identity.Models;
+﻿using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using System.Security.Principal;
 
 namespace CleanArchitecture.Application.Interfaces.Repositories;
 

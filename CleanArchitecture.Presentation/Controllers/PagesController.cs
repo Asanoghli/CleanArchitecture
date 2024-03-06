@@ -1,6 +1,5 @@
 ﻿using CleanArchitecture.Application.Contracts.Page.Requests;
 using CleanArchitecture.Application.Interfaces.Services;
-using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Presentation.Controllers;
@@ -8,8 +7,8 @@ namespace CleanArchitecture.Presentation.Controllers;
 [Route("pages")]
 public class PagesController : ControllerBase
 {
-    private readonly IPagesService pagesService;
-    public PagesController(IPagesService _pagesService)
+    private readonly IPageService pagesService;
+    public PagesController(IPageService _pagesService)
     {
         pagesService = _pagesService;   
     }

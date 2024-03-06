@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity;
+using CleanArchitecture.Infrastructure.Context;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories
 {

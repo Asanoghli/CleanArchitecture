@@ -1,12 +1,11 @@
 ﻿using CleanArchitecture.Common.Constants;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace CleanArchitecture.Infrastructure.Identity;
+namespace CleanArchitecture.Infrastructure.Context;
 
 public partial class CleanArchitectureDbContext : IdentityDbContext<AppUser,AppRole,Guid>
 {

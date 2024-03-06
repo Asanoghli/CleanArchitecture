@@ -1,5 +1,5 @@
 ﻿using CleanArchitecture.Application.Contracts.Auth.Requests;
-using CleanArchitecture.Infrastructure.Identity.Interfaces.Services;
+using CleanArchitecture.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Presentation.Controllers;

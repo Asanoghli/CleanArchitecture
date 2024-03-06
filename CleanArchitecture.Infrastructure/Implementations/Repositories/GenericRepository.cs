@@ -1,9 +1,8 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Infrastructure.Identity;
+using CleanArchitecture.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infrastructure.Implementations.Repositories
-{
+namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
     public class GenericRepository<T>(CleanArchitectureDbContext dbContext) : IGenericRepository<T> where T : class
     {
         public async Task CommitAsync()
@@ -40,4 +39,3 @@ namespace CleanArchitecture.Infrastructure.Implementations.Repositories
     
     
     }
-}

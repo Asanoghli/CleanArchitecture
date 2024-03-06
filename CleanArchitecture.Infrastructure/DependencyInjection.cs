@@ -1,14 +1,9 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Services;
-using CleanArchitecture.Infrastructure.Identity;
-using CleanArchitecture.Infrastructure.Identity.Implementations.Repositories;
-using CleanArchitecture.Infrastructure.Identity.Implementations.Services;
-using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
-using CleanArchitecture.Infrastructure.Identity.Interfaces.Services;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Implementations.Services;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -27,21 +22,15 @@ public static class DependencyInjection
 
         return services;
     }
-    public static WebApplication AddInfrastructure(this WebApplication webApplication)
-    {
-
-        return webApplication;
-    }
     private static void AddUIW(IServiceCollection services)
     {
-
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
     private static void AddServices(IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IPagesService, PagesService>();
+        services.AddScoped<IPageService, PagesService>();
     }
     private static void AddDbContext(IServiceCollection services)
     {

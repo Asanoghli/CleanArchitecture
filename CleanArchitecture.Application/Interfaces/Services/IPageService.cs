@@ -4,7 +4,7 @@ using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Responses;
 
 namespace CleanArchitecture.Application.Interfaces.Services;
-public interface IPagesService
+public interface IPageService
 {
     IResponse<GetPageBySlugModel> GetBySlug(string slug);
     Task<IResponse<CreatePageResponseModel>> CreatePage(CreatePageRequestModel page);

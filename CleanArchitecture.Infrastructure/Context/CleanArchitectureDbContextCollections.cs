@@ -1,9 +1,8 @@
 ﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CleanArchitecture.Infrastructure.Identity;
+namespace CleanArchitecture.Infrastructure.Context;
 
 public partial class CleanArchitectureDbContext:IdentityDbContext<AppUser,AppRole,Guid>
 {

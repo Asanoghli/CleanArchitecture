@@ -1,7 +1,7 @@
-﻿using CleanArchitecture.Infrastructure.Identity.Models;
+﻿using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
+namespace CleanArchitecture.Application.Interfaces.Repositories;
 
 public interface IAuthRepository
 {

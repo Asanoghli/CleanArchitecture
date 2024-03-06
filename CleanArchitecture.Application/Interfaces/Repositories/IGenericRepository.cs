@@ -1,6 +1,6 @@
 ﻿namespace CleanArchitecture.Application.Interfaces.Repositories
 {
-    public interface IGenericRepository<T>
+    public interface IGenericRepository<T> where T : class
     {
         Task<T> GetById(Guid id);
         Task<List<T>> GetAllAsList();

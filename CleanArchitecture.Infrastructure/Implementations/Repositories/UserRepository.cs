@@ -1,8 +1,8 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace CleanArchitecture.Infrastructure.Identity.Implementations.Repositories;
+namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
 
 public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
 {
@@ -26,7 +26,7 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
         throw new NotImplementedException();
     }
 
-    public async Task<IdentityResult> CreateAsync(AppUser user,string password = default)
+    public async Task<IdentityResult> CreateAsync(AppUser user, string password = default)
     {
         return await userManager.CreateAsync(user);
     }

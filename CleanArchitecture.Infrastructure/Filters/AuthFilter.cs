@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Infrastructure.Identity.Models;
+﻿using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

@@ -3,12 +3,12 @@ using CleanArchitecture.Application.Contracts.User.Responses;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Responses;
 using CleanArchitecture.Application.Interfaces.Services;
-using CleanArchitecture.Infrastructure.Identity.Models;
+using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Implementations.Response;
 
-namespace CleanArchitecture.Infrastructure.Identity.Implementations.Services;
+namespace CleanArchitecture.Infrastructure.Implementations.Services;
 
-public class UserService(IUserRepository userRepository) : IUserService
+public class UserService(IUnitOfWork unitOfWork) : IUserService
 {
     public async Task<IResponse<CreateUserResponse>> CreateUserAsync(CreateUserRequest user)
     {
@@ -21,7 +21,7 @@ public class UserService(IUserRepository userRepository) : IUserService
         appUser.LastName = "Asanoghli";
 
 
-        var result = await userRepository.CreateAsync(appUser, "drakula9x");
+        var result = await unitOfWork.userRepository.CreateAsync(appUser, "drakula9x");
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(error => new Error

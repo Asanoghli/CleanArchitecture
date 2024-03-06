@@ -1,15 +1,13 @@
 ﻿using CleanArchitecture.Application.Contracts.Page.Requests;
 using CleanArchitecture.Application.Contracts.Page.Response;
+using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Responses;
 using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
 using CleanArchitecture.Infrastructure.Implementations.Response;
-using CleanArchitecture.Infrastructure.Migrations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
-public class PagesService : IPagesService
+public class PagesService : IPageService
 {
     private readonly IUnitOfWork unitOfWork;
     public PagesService(IUnitOfWork _unitOfWork)

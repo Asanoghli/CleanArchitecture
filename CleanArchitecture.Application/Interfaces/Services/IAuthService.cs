@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Application.Contracts.Auth.Requests;
 
-namespace CleanArchitecture.Infrastructure.Identity.Interfaces.Services;
+namespace CleanArchitecture.Application.Interfaces.Services;
 
 public interface IAuthService
 {

@@ -1,15 +1,14 @@
-﻿
-namespace CleanArchitecture.Domain.Entities;
-public class SlideItem : BaseEntity
+﻿namespace CleanArchitecture.Domain.Entities;
+
+public class AppUserContact : BaseEntity
 {
-    public string? Title{ get; set; }
-    public string? TitleEng { get; set; }
-    public string? Description { get; set; }
-    public string? DescriptionEng { get; set; }
-    public string? ImagePath { get; set; }
-    public string? ImagePathEng { get; set; }
-    public byte OrderNumber { get; set; }
-    public bool IsActive { get; set; }
+    public Guid UserId { get; set; }
+    public AppUser User { get; set; }
+
+    public string? PhoneNumber { get; set; }
+    public string? MobileNumber { get; set; }
+    public string? CountryCode { get; set; }
+    public string? EmailAddress { get; set; }
 
     #region BaseEntity
     public Guid Id { get; set; }
@@ -22,5 +21,5 @@ public class SlideItem : BaseEntity
     public DateTime? DeletedAt { get; set; }
     public Guid? DeletedBy { get; set; }
     public AppUser? DeletedByUser { get; set; }
-    #endregion
+#endregion
 }

@@ -16,5 +16,7 @@ namespace CleanArchitecture.Common.Constants
         public const string ROLES = "Roles";
         public const string ROLE_CLAIMS = "RoleClaims";
         public const string USER_TOKENS = "UserTokens";
+        public const string PAGES = "Pages";
+
     }
 }

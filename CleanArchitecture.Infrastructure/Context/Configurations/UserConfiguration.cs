@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Infrastructure.Identity.Models;
+﻿using CleanArchitecture.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CleanArchitecture.Infrastructure.Identity.Configurations
+namespace CleanArchitecture.Infrastructure.Context.Configurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<AppUser>
     {
