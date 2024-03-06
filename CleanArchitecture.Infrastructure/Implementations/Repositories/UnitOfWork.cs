@@ -4,71 +4,79 @@ using CleanArchitecture.Infrastructure.Identity.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories;
 using CleanArchitecture.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace CleanArchitecture.Infrastructure.Implementations.Repositories
+namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork(CleanArchitectureDbContext dbContext,SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : IUnitOfWork
+    #region
+    private CleanArchitectureDbContext _dbContext;
+    private SignInManager<AppUser> _signInManager;
+    private UserManager<AppUser> _userManager;
+    public UnitOfWork(CleanArchitectureDbContext dbContext, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
     {
+        _dbContext = dbContext;
+        _signInManager = signInManager;
+        _userManager = userManager;
+    }
+    #endregion
 
-        private IDbContextTransaction _transaction;
-        private IPagesRepository _pagesRepository;
-        private IUserRepository _userRepository;
-        private IAuthRepository _authRepository;
+    #region Private Fields
 
-        public IPagesRepository pagesRepository
+
+    private IDbContextTransaction _transaction = default!;
+    private IPagesRepository _pagesRepository = default!;
+    private IUserRepository _userRepository = default!;
+    private IAuthRepository _authRepository = default!;
+    #endregion
+
+    #region Public Fields
+    public IPagesRepository pagesRepository
+    {
+        get
         {
-            get
-            {
-                if (_pagesRepository == null) _pagesRepository = new PagesRepository(dbContext);
+            if (_pagesRepository == null) _pagesRepository = new PagesRepository(_dbContext);
 
-                return _pagesRepository;
-            }
-        }
-        public IUserRepository userRepository
-        {
-            get
-            {
-                if (_userRepository == null) _userRepository = new UserRepository(userManager);
-
-                return _userRepository;
-            }
-        }
-        public IAuthRepository authRepository
-        {
-
-            get
-            {
-                if (_authRepository == null) _authRepository = new AuthRepository(signInManager, userManager);
-
-                return _authRepository;
-            }
-        }
-
-        public async Task BeginTransactin(CancellationToken cancellationToken)
-        {
-            _transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
-        }
-
-        public async Task CommitTransaction(CancellationToken token)
-        {
-            await _transaction.CommitAsync(token);
-        }
-
-        public async Task RollBackTransaction()
-        {
-            await _transaction.RollbackAsync();
-        }
-
-        public async Task Save()
-        {
-            await dbContext.SaveChangesAsync();
-        }
-
-        public Task SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            return _pagesRepository;
         }
     }
+    public IUserRepository userRepository
+    {
+        get
+        {
+            if (_userRepository == null) _userRepository = new UserRepository(_userManager);
+
+            return _userRepository;
+        }
+    }
+    public IAuthRepository authRepository
+    {
+
+        get
+        {
+            if (_authRepository == null) _authRepository = new AuthRepository(_signInManager, _userManager);
+
+            return _authRepository;
+        }
+    }
+    #endregion
+
+    #region Methods
+    public async Task BeginTransactin(CancellationToken cancellationToken = default)
+    {
+        _transaction = await _dbContext.Database.BeginTransactionAsync(cancellationToken);
+    }
+    public async Task CommitTransaction(CancellationToken cancellationToken = default)
+    {
+        await _transaction.CommitAsync(cancellationToken);
+    }
+    public async Task RollBackTransaction(CancellationToken cancellationToken = default)
+    {
+        await _transaction.RollbackAsync(cancellationToken);
+    }
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+    #endregion
 }

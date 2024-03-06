@@ -22,7 +22,7 @@ public static class DependencyInjection
     {
         AddDbContext(services);
         AddIdentity(services);
-        AddRepositories(services);
+        AddUIW(services);
         AddServices(services);
 
         return services;
@@ -32,15 +32,15 @@ public static class DependencyInjection
 
         return webApplication;
     }
-    private static void AddRepositories(IServiceCollection services)
+    private static void AddUIW(IServiceCollection services)
     {
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
     private static void AddServices(IServiceCollection services)
     {
-        //services.AddScoped<IUserService, UserService>();
-        //services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPagesService, PagesService>();
     }
     private static void AddDbContext(IServiceCollection services)

@@ -7,10 +7,9 @@ namespace CleanArchitecture.Infrastructure.Identity.Interfaces.Repositories
         IPagesRepository pagesRepository { get; }
         IUserRepository userRepository { get; }
         IAuthRepository authRepository { get; }
-        Task Save();
-        Task BeginTransactin();
-        Task CommitTransaction();
-        Task RollBackTransaction();
-        Task SaveChangesAsync();
+        Task BeginTransactin(CancellationToken cancellation);
+        Task CommitTransaction(CancellationToken cancellation);
+        Task RollBackTransaction(CancellationToken cancellation);
+        Task SaveChangesAsync(CancellationToken cancellation);
     }
 }
