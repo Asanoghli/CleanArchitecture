@@ -1,8 +1,5 @@
-﻿using CleanArchitecture.Application.Contracts.Auth.Requests;
-using CleanArchitecture.Application.Interfaces.Services;
-using Microsoft.AspNetCore.Localization;
+﻿using CleanArchitecture.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 
 namespace CleanArchitecture.Presentation.Controllers;
 

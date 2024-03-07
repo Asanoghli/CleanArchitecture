@@ -7,10 +7,10 @@ public class CultureInfoMiddleware : IMiddleware
 {
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var containsCulture = context.Request.RouteValues["culture"] != null;
+        var containsCulture = context.Request.Headers.Any(header => header.Key.Equals("Content-Language"));
         if (containsCulture)
         {
-            var language = context.Request.RouteValues["culture"]!.ToString()!.ToLower();
+            var language = context.Request.Headers.First(header=>header!.Key!.Equals("Content-Language"))!.Value;
             CultureInfo.CurrentCulture = SupportedCultureInfos.GetCultureInfo(language);
             CultureInfo.CurrentUICulture = SupportedCultureInfos.GetCultureInfo(language);
             Thread.CurrentThread.CurrentCulture = SupportedCultureInfos.GetCultureInfo(language);
@@ -23,7 +23,6 @@ public class CultureInfoMiddleware : IMiddleware
             Thread.CurrentThread.CurrentCulture = SupportedCultureInfos.GetCultureInfo(SupportedCultureInfos.DEFAULT);
             Thread.CurrentThread.CurrentUICulture = SupportedCultureInfos.GetCultureInfo(SupportedCultureInfos.DEFAULT);
         }
-
         await next(context);
     }
 }

@@ -2,16 +2,18 @@ using CleanArchitecture.Application;
 using CleanArchitecture.Common.Localizations;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Middlewares;
-using Microsoft.AspNetCore.Builder;
+using CleanArchitecture.Presentation.Filters;
 using Microsoft.AspNetCore.Localization;
-using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddTransient<CultureInfoMiddleware>();
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    opt.Filters.Add<ValidationFilter>(order: int.MinValue);
+});
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 builder.Services.AddCors(x => x.AddPolicy("MyPolicy", opt =>
@@ -34,9 +36,9 @@ var app = builder.Build();
 //app.UseHttpsRedirection();
 app.UseCors("MyPolicy");
 app.UseMiddleware<CultureInfoMiddleware>();
-
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRouting();
 app.MapControllers();
 
 app.Run();

@@ -120,4 +120,10 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>მომხმარებელი ვერ მოიძებნა</value>
   </data>
+  <data name="UserUsernameAlreadyExists" xml:space="preserve">
+    <value>მომხმარებლის სახელი {0} დაკავებულია</value>
+  </data>
+  <data name="UserUsernameIsEmpty" xml:space="preserve">
+    <value>მომხმარებლის სახელი ცარიელია</value>
+  </data>
 </root>

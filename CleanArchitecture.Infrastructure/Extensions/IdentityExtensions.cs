@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Common.Implementations.Response;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,13 @@ public static class IdentityExtensions
             errorKey = error.Code,
             errorMessage = error.Description
         });
+    }
+    public static IEnumerable<Error> GetResponseErrors(this ModelStateDictionary errors)
+    {
+        return errors.SelectMany(error => error.Value!.Errors.Select(childError=>new Error
+        {
+            errorKey = error.Key,
+            errorMessage = childError.ErrorMessage
+        }));
     }
 }

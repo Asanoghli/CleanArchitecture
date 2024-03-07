@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CleanArchitecture.Infrastructure.Resources {
+namespace CleanArchitecture.Application.Resources {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace CleanArchitecture.Infrastructure.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ResourceLocalizer {
+    public class ResourceLocalizer {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace CleanArchitecture.Infrastructure.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CleanArchitecture.Infrastructure.Resources.ResourceLocalizer", typeof(ResourceLocalizer).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CleanArchitecture.Application.Resources.ResourceLocalizer", typeof(ResourceLocalizer).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace CleanArchitecture.Infrastructure.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,9 +63,27 @@ namespace CleanArchitecture.Infrastructure.Resources {
         /// <summary>
         ///   Looks up a localized string similar to User Not Found.
         /// </summary>
-        internal static string UserNotFound {
+        public static string UserNotFound {
             get {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username {0} Already Exists.
+        /// </summary>
+        public static string UserUsernameAlreadyExists {
+            get {
+                return ResourceManager.GetString("UserUsernameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username Is Empty.
+        /// </summary>
+        public static string UserUsernameIsEmpty {
+            get {
+                return ResourceManager.GetString("UserUsernameIsEmpty", resourceCulture);
             }
         }
     }

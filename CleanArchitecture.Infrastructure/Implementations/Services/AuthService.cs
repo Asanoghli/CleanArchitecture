@@ -1,11 +1,10 @@
 ﻿using CleanArchitecture.Application.Contracts.Auth.Requests;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Services;
+using CleanArchitecture.Application.Resources;
 using CleanArchitecture.Common.Enums;
 using CleanArchitecture.Common.Implementations.Response;
 using CleanArchitecture.Common.Interfaces.Responses;
-using CleanArchitecture.Infrastructure.Resources;
-using System.Globalization;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
 

@@ -120,4 +120,10 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>User Not Found</value>
   </data>
+  <data name="UserUsernameAlreadyExists" xml:space="preserve">
+    <value>Username {0} Already Exists</value>
+  </data>
+  <data name="UserUsernameIsEmpty" xml:space="preserve">
+    <value>Username Is Empty</value>
+  </data>
 </root>
