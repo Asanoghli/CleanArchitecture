@@ -61,6 +61,24 @@ namespace CleanArchitecture.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User ID Is Empty.
+        /// </summary>
+        public static string UserIdIsEmpty {
+            get {
+                return ResourceManager.GetString("UserIdIsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User ID Is Incorrect.
+        /// </summary>
+        public static string UserIdIsInvalid {
+            get {
+                return ResourceManager.GetString("UserIdIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Not Found.
         /// </summary>
         public static string UserNotFound {

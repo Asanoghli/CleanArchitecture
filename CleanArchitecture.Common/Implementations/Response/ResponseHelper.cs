@@ -34,6 +34,13 @@ public static class ResponseHelper<T>
 
         return response;
     }
+    public static IResponse<T> Success()
+    {
+        var response = new Response<T>();
+        response.isSuccess = true;
+
+        return response;
+    }
 
     public static IResponse<T> Success(T data)
     {

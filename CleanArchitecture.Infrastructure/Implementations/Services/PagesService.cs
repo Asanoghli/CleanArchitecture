@@ -1,5 +1,5 @@
-﻿using CleanArchitecture.Application.Contracts.Page.Requests;
-using CleanArchitecture.Application.Contracts.Page.Response;
+﻿using CleanArchitecture.Application.Contracts.Admin.Page.Requests;
+using CleanArchitecture.Application.Contracts.Admin.Page.Response;
 using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Common.Implementations.Response;
@@ -14,12 +14,12 @@ public class PagesService : IPageService
     {
         unitOfWork = _unitOfWork;
     }
-    public IResponse<GetPageBySlugModel> GetBySlug(string slug)
+    public IResponse<AdminGetPageBySlugModel> GetBySlug(string slug)
     {
-        return ResponseHelper<GetPageBySlugModel>.Success(null);
+        return ResponseHelper<AdminGetPageBySlugModel>.Success(null);
     }
 
-    public async Task<IResponse<CreatePageResponseModel>> CreatePage(CreatePageRequestModel page)
+    public async Task<IResponse<AdminCreatePageResponseModel>> CreatePage(AdminCreatePageRequestModel page)
     {
         var newPag = new Page
         {
@@ -32,6 +32,6 @@ public class PagesService : IPageService
         };
         await unitOfWork.pagesRepository.CreatePage(newPag);
 
-        return ResponseHelper<CreatePageResponseModel>.Success(new CreatePageResponseModel { id=newPag.Id});
+        return ResponseHelper<AdminCreatePageResponseModel>.Success(new AdminCreatePageResponseModel { id=newPag.Id});
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanArchitecture.Application.Contracts.User.Responses
+namespace CleanArchitecture.Application.Contracts.Admin.Users.Responses
 {
-    public class CreateUserResponse
+    public class AdminCreateUserResponse
     {
         public Guid id { get; set; }
     }

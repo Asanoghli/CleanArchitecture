@@ -1,29 +1,48 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
 
 public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
 {
-    public Task<bool> AddToRole(string roleName)
+    public async Task<IdentityResult> AddToRole(AppUser user, string roleName)
     {
-        throw new NotImplementedException();
+        return await userManager.AddToRoleAsync(user, roleName);
     }
 
-    public Task<bool> AddToRoles(string[] roleNames)
+    public async Task<IdentityResult> AddToRoles(AppUser user, string[] roleNames)
     {
-        throw new NotImplementedException();
+        return await userManager.AddToRolesAsync(user, roleNames);
     }
 
-    public Task<bool> CheckEmailAddress(string email)
+    public async Task<bool> IsEmailBusy(string email, Guid currentUserId)
     {
-        throw new NotImplementedException();
+        var isBusy = default(bool);
+        if (currentUserId == default)
+        {
+            isBusy = await userManager.Users.AnyAsync(user => user.Email!.Equals(email));
+        }
+        else
+        {
+            isBusy = await userManager.Users.AnyAsync(user => user.Email.Equals(email) && !user.Id.Equals(currentUserId));
+        }
+        return isBusy;
     }
 
-    public Task<bool> CheckPhoneNumber(string phoneNumber)
+    public async Task<bool> IsPhoneNumberBusy(string phoneNumber, Guid currentUserId = default)
     {
-        throw new NotImplementedException();
+        var isBusy = default(bool);
+        if (currentUserId == default)
+        {
+            isBusy = await userManager.Users.AnyAsync(user => user.PhoneNumber!.Equals(phoneNumber));
+        }
+        else
+        {
+            isBusy = await userManager.Users.AnyAsync(user => user.PhoneNumber.Equals(phoneNumber) && !user.Id.Equals(currentUserId));
+        }
+        return isBusy;
     }
 
     public async Task<IdentityResult> CreateAsync(AppUser user, string password = default)
@@ -31,18 +50,33 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
         return await userManager.CreateAsync(user);
     }
 
-    public Task<AppUser> GetByEmail(string email)
+    public async Task<AppUser> FindByEmail(string email)
     {
-        throw new NotImplementedException();
+        return await userManager.FindByEmailAsync(email);
     }
 
-    public Task<bool> RemoveFromRole(string roleName)
+    public async Task<AppUser> FindById(string id)
     {
-        throw new NotImplementedException();
+        return await userManager.FindByIdAsync(id);
     }
 
-    public Task<bool> RemoveFromRoles(string[] roleNames)
+    public async Task<IdentityResult> RemoveFromRole(AppUser user,string roleName)
+    { 
+        return await userManager.RemoveFromRoleAsync(user,roleName);
+    }
+
+    public async Task<IdentityResult> RemoveFromRoles(AppUser user, string[] roleNames)
     {
-        throw new NotImplementedException();
+        return await userManager.RemoveFromRolesAsync(user, roleNames);
+    }
+
+    public async Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token)
+    {
+      return await userManager.ConfirmEmailAsync(user, token);
+    }
+
+    public async Task<string> GenerateConfirmationToken(AppUser user)
+    {
+        return await userManager.GenerateEmailConfirmationTokenAsync(user);
     }
 }

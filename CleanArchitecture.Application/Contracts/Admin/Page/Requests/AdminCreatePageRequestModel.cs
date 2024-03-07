@@ -1,6 +1,6 @@
-﻿namespace CleanArchitecture.Application.Contracts.Page.Requests;
-public class CreatePageRequestModel
-    {
+﻿namespace CleanArchitecture.Application.Contracts.Admin.Page.Requests;
+public class AdminCreatePageRequestModel
+{
     public string title { get; set; }
     public string titleEng { get; set; }
     public string description { get; set; }

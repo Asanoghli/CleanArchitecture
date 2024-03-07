@@ -11,13 +11,11 @@ public class ValidationFilter : IAsyncActionFilter
         if (isInvalid)
         {
             var errors = context.ModelState.GetResponseErrors();
-            context.Result = new JsonResult(errors) { StatusCode = 200 };
+            context.Result = new JsonResult(errors) { StatusCode = 403 };
         }
         else
         {
             await next();
         }
-
-
     }
 }
