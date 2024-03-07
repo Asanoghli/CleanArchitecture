@@ -5,6 +5,7 @@ using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Common.Implementations.Response;
 using CleanArchitecture.Common.Interfaces.Responses;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Infrastructure.Extensions;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
 
@@ -24,13 +25,8 @@ public class UserService(IUnitOfWork unitOfWork) : IUserService
         var result = await unitOfWork.userRepository.CreateAsync(appUser, "drakula9x");
         if (!result.Succeeded)
         {
-            var errors = result.Errors.Select(error => new Error
-            {
-                errorKey = error.Code,
-                errorMessage = error.Description
-            });
-
-            return ResponseHelper<CreateUserResponse>.Failed(errors.ToArray());
+            var errors = result.Errors.GetResponseErrors();
+            return ResponseHelper<CreateUserResponse>.Failed(errors);
         }
 
 

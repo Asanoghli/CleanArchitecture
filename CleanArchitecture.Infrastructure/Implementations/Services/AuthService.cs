@@ -13,12 +13,15 @@ public class AuthService(IUnitOfWork unitOfWork) : IAuthService
 {
     public async Task<IResponse<EmptyResponse>> ConfirmEmail(string token, Guid userId)
     {
-        var culture = Thread.CurrentThread.CurrentCulture;
-        var culture2 = CultureInfo.CurrentCulture;
-        if (userId == Guid.Empty)
-        return ResponseHelper<EmptyResponse>.Failed(new Error { errorKey = ErrorCodes.USER_NOT_FOUND, errorMessage = ResourceLocalizer.UserNotFound});
         var user = await unitOfWork.authRepository.FindById(userId.ToString());
 
+        if (user is null) return ResponseHelper<EmptyResponse>.Failed(new Error { errorKey = ErrorCodes.USER_NOT_FOUND, errorMessage = ResourceLocalizer.UserNotFound});
+
+        var response = await unitOfWork.authRepository.ConfirmEmail(token, user);
+        if (!response.Succeeded)
+        {
+
+        }
         return null;
     }
 

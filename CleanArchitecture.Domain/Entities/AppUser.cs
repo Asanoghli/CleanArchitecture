@@ -5,7 +5,15 @@ public class AppUser : IdentityUser<Guid>, BaseEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public ICollection<AppUserContact>? Contacts { get; set; }
+    #region Collections
+    public ICollection<AppUserContact> Contacts { get; set; }
+    public ICollection<AppUser> CreatedUsers { get; set; }
+    public ICollection<AppUser> DeletedUsers { get; set; }
+    public ICollection<AppUser> UpdatedUsers { get; set; }
+    public ICollection<AppUserContact> CreatedUserContacts { get; set; }
+    public ICollection<AppUserContact> DeletedUserContacts { get; set; }
+    public ICollection<AppUserContact> UpdatedUserContacts { get; set; }
+    #endregion
 
 
     #region BaseEntity

@@ -4,7 +4,7 @@ using CleanArchitecture.Common.Interfaces.Responses;
 namespace CleanArchitecture.Common.Implementations.Response;
 public static class ResponseHelper<T>
 {
-    public static IResponse<T> Failed(IError[] errors)
+    public static IResponse<T> Failed(IEnumerable<IError> errors)
     {
         var response = new Response<T>();
         response.errors = errors;
@@ -14,11 +14,11 @@ public static class ResponseHelper<T>
     public static IResponse<T> Failed(IError error)
     {
         var response = new Response<T>();
-        response.errors = new IError[] {error};
+        response.errors = new IError[] { error };
 
         return response;
     }
-    public static IResponse<T> Failed(IError error,string message)
+    public static IResponse<T> Failed(IError error, string message)
     {
         var response = new Response<T>();
         response.errors = new IError[] { error };
@@ -26,7 +26,7 @@ public static class ResponseHelper<T>
 
         return response;
     }
-    public static IResponse<T> Failed(IError[] errors,string message)
+    public static IResponse<T> Failed(IEnumerable<IError> errors, string message)
     {
         var response = new Response<T>();
         response.errors = errors;
@@ -43,7 +43,7 @@ public static class ResponseHelper<T>
 
         return response;
     }
-    public static IResponse<T> Success(T data,string message)
+    public static IResponse<T> Success(T data, string message)
     {
         var response = new Response<T>();
         response.isSuccess = true;

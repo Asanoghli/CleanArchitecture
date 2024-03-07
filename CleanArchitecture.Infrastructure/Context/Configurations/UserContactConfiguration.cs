@@ -13,5 +13,9 @@ public class UserContactConfiguration : IEntityTypeConfiguration<AppUserContact>
             .WithMany(user => user.Contacts)
             .HasForeignKey(contact=>contact.UserId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.HasOne(appUserContact => appUserContact.CreatedByUser).WithMany(user => user.CreatedUserContacts);
+        builder.HasOne(appUserContact => appUserContact.DeletedByUser).WithMany(user => user.DeletedUserContacts);
+        builder.HasOne(appUserContact => appUserContact.UpdatedByUser).WithMany(user => user.UpdatedUserContacts);
     }
 }
