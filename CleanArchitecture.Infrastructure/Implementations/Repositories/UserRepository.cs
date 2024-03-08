@@ -60,9 +60,9 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
         return await userManager.FindByIdAsync(id);
     }
 
-    public async Task<IdentityResult> RemoveFromRole(AppUser user,string roleName)
-    { 
-        return await userManager.RemoveFromRoleAsync(user,roleName);
+    public async Task<IdentityResult> RemoveFromRole(AppUser user, string roleName)
+    {
+        return await userManager.RemoveFromRoleAsync(user, roleName);
     }
 
     public async Task<IdentityResult> RemoveFromRoles(AppUser user, string[] roleNames)
@@ -72,11 +72,19 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
 
     public async Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token)
     {
-      return await userManager.ConfirmEmailAsync(user, token);
+        return await userManager.ConfirmEmailAsync(user, token);
     }
 
     public async Task<string> GenerateConfirmationToken(AppUser user)
     {
         return await userManager.GenerateEmailConfirmationTokenAsync(user);
+    }
+
+    public IQueryable<AppUser> GetAllUsersQuery(bool AsNoTracking = true)
+    {
+        if (AsNoTracking)
+            return userManager.Users.AsNoTracking();
+        else
+            return userManager.Users;
     }
 }

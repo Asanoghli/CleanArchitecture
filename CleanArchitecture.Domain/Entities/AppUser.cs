@@ -5,6 +5,7 @@ public class AppUser : IdentityUser<Guid>, BaseEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public DateOnly? BirthDate { get; set; }
     #region Collections
     public ICollection<AppUserContact> Contacts { get; set; }
     public ICollection<AppUser> CreatedUsers { get; set; }

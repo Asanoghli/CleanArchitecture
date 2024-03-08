@@ -8,6 +8,7 @@ using CleanArchitecture.Common.Implementations.Response;
 using CleanArchitecture.Common.Interfaces.Responses;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Extensions;
+using PagedList;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
 
@@ -31,6 +32,27 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
 
         return ResponseHelper<AdminCreateUserResponse>.Success(createUserResponse);
     }
+    public async Task<IResponse<IPagedList<AdminGetAllUsersResponse>>> GetAllUsers(AdminGetAllUsersRequest request)
+    {
+        var usersQuery = unitOfWork.userRepository.GetAllUsersQuery();
+
+        #region Filters
+        if (request != null)
+        {
+            if (!string.IsNullOrWhiteSpace(request.firstName)) usersQuery = usersQuery.Where(user => user.FirstName.Contains(request.firstName));
+            if (!string.IsNullOrWhiteSpace(request.lastName)) usersQuery = usersQuery.Where(user => user.LastName.Contains(request.lastName));
+            if (!string.IsNullOrWhiteSpace(request.email)) usersQuery = usersQuery.Where(user => user.Email.Equals(request.email));
+            if (!string.IsNullOrWhiteSpace(request.phoneNumber)) usersQuery = usersQuery.Where(user => user.PhoneNumber != null && user.PhoneNumber.Equals(request.phoneNumber));
+            if (request.birthDate.HasValue) usersQuery = usersQuery.Where(user => user.BirthDate != null && user.BirthDate.Value.Equals(request.birthDate.Value));
+        }
+        #endregion
+
+        var mappedUsersQuery = _mapper.ProjectTo<AdminGetAllUsersResponse>(usersQuery);
+
+        var users = mappedUsersQuery.ToPagedList(request!.pageNumber, request.pageSize);
+
+        return ResponseHelper<IPagedList<AdminGetAllUsersResponse>>.Success(users);
+    }
     public async Task<IResponse<EmptyResponse>> ConfirmEmailAsync(Guid userId, string token)
     {
         var isUserEmpty = userId == Guid.Empty;
@@ -51,7 +73,7 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
         var user = await unitOfWork.userRepository.FindById(userId.ToString());
         if (user == null) return ResponseHelper<string>.Failed(new Error { errorKey = nameof(AppUser.Id), errorMessage = ResourceLocalizer.UserNotFound });
 
-        var token =  await  unitOfWork.userRepository.GenerateConfirmationToken(user);
+        var token = await unitOfWork.userRepository.GenerateConfirmationToken(user);
 
         return ResponseHelper<string>.Success(token);
     }

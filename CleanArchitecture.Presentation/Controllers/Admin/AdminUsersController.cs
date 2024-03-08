@@ -14,4 +14,11 @@ public class AdminUsersController(IUserService _userService):ControllerBase
 
         return Ok(response);
     }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetAllUsers([FromQuery] AdminGetAllUsersRequest request)
+    {
+        var users = await _userService.GetAllUsers(request);
+        return Ok(users);
+    }
 }

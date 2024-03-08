@@ -117,19 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="UserEmailIsIncorrect" xml:space="preserve">
+    <value>ელ.ფოსტის მისამართი არასწორია</value>
+  </data>
+  <data name="UserEmailIsRequired" xml:space="preserve">
+    <value>ელ.ფოსტის მისამართი არ უნდა იყოს ცარიელი</value>
+  </data>
+  <data name="UserFirstNameIsRequired" xml:space="preserve">
+    <value>სახელი არ უნდა იყოს ცარიელი</value>
+  </data>
+  <data name="UserFirstNameIsTooShort" xml:space="preserve">
+    <value>სახელი უნდა შედგებოდეს მინიმუმ {0} სიმბოლოსგან</value>
+  </data>
   <data name="UserIdIsEmpty" xml:space="preserve">
-    <value>მომხმარებლის ID ცარიელია</value>
+    <value>მომხმარებლის ID არ უნდა იყოს ცარიელია</value>
   </data>
   <data name="UserIdIsInvalid" xml:space="preserve">
     <value>მომხმარებლის ID არასწორია</value>
   </data>
+  <data name="UserLastNameIsRequired" xml:space="preserve">
+    <value>გვარი არ უნდა იყოს ცარიელი</value>
+  </data>
+  <data name="UserLastNameIsTooShort" xml:space="preserve">
+    <value>გვარი უნდა შედგებოდეს მინიმუმ {0} სიმბოლოსგან</value>
+  </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>მომხმარებელი ვერ მოიძებნა</value>
+  </data>
+  <data name="UserPasswordIsRequired" xml:space="preserve">
+    <value>პაროლი არ უნდა იყოს ცარიელი</value>
+  </data>
+  <data name="UserPasswordIsTooShort" xml:space="preserve">
+    <value>პაროლი უნდა შეიცავდეს მინიმუმ {0} სიმბოლოს</value>
   </data>
   <data name="UserUsernameAlreadyExists" xml:space="preserve">
     <value>მომხმარებლის სახელი {0} დაკავებულია</value>
   </data>
   <data name="UserUsernameIsEmpty" xml:space="preserve">
-    <value>მომხმარებლის სახელი ცარიელია</value>
+    <value>მომხმარებლის სახელი არ უნდა იყოს ცარიელია</value>
+  </data>
+  <data name="UserUsernameIsTooShort" xml:space="preserve">
+    <value>მომხმარებლის სახელი უნდა შედგებოდეს მინიმუმ {0} სიმბოლოსგან.</value>
   </data>
 </root>

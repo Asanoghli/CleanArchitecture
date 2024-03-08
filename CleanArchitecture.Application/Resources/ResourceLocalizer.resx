@@ -117,19 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="UserEmailIsIncorrect" xml:space="preserve">
+    <value>E-Mail address is incorrect</value>
+  </data>
+  <data name="UserEmailIsRequired" xml:space="preserve">
+    <value>E-Mail address must not be empty</value>
+  </data>
+  <data name="UserFirstNameIsRequired" xml:space="preserve">
+    <value>Firstname must not be empty</value>
+  </data>
+  <data name="UserFirstNameIsTooShort" xml:space="preserve">
+    <value>Firstname must be minimum {0} characters.</value>
+  </data>
   <data name="UserIdIsEmpty" xml:space="preserve">
-    <value>User ID Is Empty</value>
+    <value>User ID  must not be empty</value>
   </data>
   <data name="UserIdIsInvalid" xml:space="preserve">
-    <value>User ID Is Incorrect</value>
+    <value>User ID is incorrect</value>
+  </data>
+  <data name="UserLastNameIsRequired" xml:space="preserve">
+    <value>Lastname must not be empty</value>
+  </data>
+  <data name="UserLastNameIsTooShort" xml:space="preserve">
+    <value>Lastname must be minimum {0} characters</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
-    <value>User Not Found</value>
+    <value>User not found</value>
+  </data>
+  <data name="UserPasswordIsRequired" xml:space="preserve">
+    <value>Password must not be empty</value>
+  </data>
+  <data name="UserPasswordIsTooShort" xml:space="preserve">
+    <value>Password must be minimum {0} characters</value>
   </data>
   <data name="UserUsernameAlreadyExists" xml:space="preserve">
-    <value>Username {0} Already Exists</value>
+    <value>Username {0} already exists</value>
   </data>
   <data name="UserUsernameIsEmpty" xml:space="preserve">
-    <value>Username Is Empty</value>
+    <value>Username must not be empty</value>
+  </data>
+  <data name="UserUsernameIsTooShort" xml:space="preserve">
+    <value>Username must be minimum {0} characters</value>
   </data>
 </root>

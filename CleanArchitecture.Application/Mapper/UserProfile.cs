@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.Contracts.Admin.Users.Requests;
+using CleanArchitecture.Application.Contracts.Admin.Users.Responses;
 using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Application.Mapper
@@ -9,6 +10,7 @@ namespace CleanArchitecture.Application.Mapper
         public UserProfile()
         {
             CreateMap<AppUser,AdminCreateUserRequest>().ReverseMap();
+            CreateMap<AppUser,AdminGetAllUsersResponse>().ReverseMap();
         }
     }
 }

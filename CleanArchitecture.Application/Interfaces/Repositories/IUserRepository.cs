@@ -16,4 +16,5 @@ public interface IUserRepository
     Task<IdentityResult> CreateAsync(AppUser user,string password = default);
     Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token);
     Task<string> GenerateConfirmationToken(AppUser user);
+    IQueryable<AppUser> GetAllUsersQuery(bool AsNoTracking = true);
 }
