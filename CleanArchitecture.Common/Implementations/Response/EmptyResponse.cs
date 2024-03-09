@@ -2,5 +2,6 @@
 {
     public class EmptyResponse
     {
+        public static EmptyResponse Empty = new EmptyResponse();
     }
 }

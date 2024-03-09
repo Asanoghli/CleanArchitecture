@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace CleanArchitecture.Presentation.Controllers.Admin;
 [Route("admin/users")]
 [ApiController]
-public class AdminUsersController(IUserService _userService):ControllerBase
+public class AdminUsersController(IUserService _userService) : ControllerBase
 {
-    [HttpPost("create-user")]
+    [HttpPost("create")]
     public async Task<IActionResult> CreateUser([FromBody] AdminCreateUserRequest user)
     {
         var response = await _userService.CreateUserAsync(user);
@@ -16,9 +16,18 @@ public class AdminUsersController(IUserService _userService):ControllerBase
     }
 
     [HttpGet("")]
-    public async Task<IActionResult> GetAllUsers([FromQuery] AdminGetAllUsersRequest request)
+    public async Task<IActionResult> GetAllUsers([FromQuery] AdminGetAllUsersRequest filter)
     {
-        var users = await _userService.GetAllUsers(request);
+        var users = await _userService.GetAllUsers(filter);
         return Ok(users);
     }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateUser([FromBody] AdminUpdateUserRequest user)
+    {
+        var response = await _userService.UpdateUserAsync(user);
+
+        return Ok(response);
+    }
+
 }

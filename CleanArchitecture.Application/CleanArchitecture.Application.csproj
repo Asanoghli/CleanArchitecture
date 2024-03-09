@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.EntityFramework" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>

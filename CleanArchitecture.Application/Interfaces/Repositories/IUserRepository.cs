@@ -14,7 +14,9 @@ public interface IUserRepository
     Task<bool> IsPhoneNumberBusy(string phoneNumber, Guid currentUserId = default);
     Task<bool> IsEmailBusy(string email,Guid currentUserId = default);
     Task<IdentityResult> CreateAsync(AppUser user,string password = default);
+    Task<IdentityResult> ChangePasswordAsync(AppUser user, string oldPassword, string newPassword);
     Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token);
     Task<string> GenerateConfirmationToken(AppUser user);
     IQueryable<AppUser> GetAllUsersQuery(bool AsNoTracking = true);
+    Task<IdentityResult> UpdateUser(AppUser user);
 }

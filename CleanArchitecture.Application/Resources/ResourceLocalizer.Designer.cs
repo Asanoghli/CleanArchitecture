@@ -61,6 +61,15 @@ namespace CleanArchitecture.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request model is empty.
+        /// </summary>
+        public static string RequestModelIsNull {
+            get {
+                return ResourceManager.GetString("RequestModelIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mail address is incorrect.
         /// </summary>
         public static string UserEmailIsIncorrect {

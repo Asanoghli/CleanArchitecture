@@ -47,7 +47,12 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
 
     public async Task<IdentityResult> CreateAsync(AppUser user, string password = default)
     {
-        return await userManager.CreateAsync(user);
+        return await userManager.CreateAsync(user, password);
+    }
+
+    public async Task<IdentityResult> ChangePasswordAsync(AppUser user, string oldPassword, string newPassword)
+    {
+        return await userManager.ChangePasswordAsync(user, oldPassword, newPassword);
     }
 
     public async Task<AppUser> FindByEmail(string email)
@@ -86,5 +91,10 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
             return userManager.Users.AsNoTracking();
         else
             return userManager.Users;
+    }
+
+    public async Task<IdentityResult> UpdateUser(AppUser user)
+    {
+        return await userManager.UpdateAsync(user);
     }
 }
