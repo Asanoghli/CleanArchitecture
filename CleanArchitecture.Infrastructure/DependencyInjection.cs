@@ -1,10 +1,13 @@
 ﻿using CleanArchitecture.Application.Interfaces.Repositories;
 using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Domain.Entities;
+using CleanArchitecture.Infrastructure.Authorization;
 using CleanArchitecture.Infrastructure.Context;
+using CleanArchitecture.Infrastructure.Extensions;
 using CleanArchitecture.Infrastructure.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Implementations.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPageService, PagesService>();
+        services.AddScoped<IRolesService, RolesService>();
     }
     private static void AddDbContext(IServiceCollection services)
     {
@@ -39,6 +43,8 @@ public static class DependencyInjection
     }
     private static void AddIdentity(IServiceCollection services,IConfiguration configuration)
     {
+        services.AddSingleton<IAuthorizationHandler, AlphaSoftAuthorizationHandler>();
+
         services.AddIdentity<AppUser, AppRole>(config =>
         {
             config.Password.RequiredUniqueChars = 0;
@@ -69,6 +75,14 @@ public static class DependencyInjection
             };
 
         });
-        services.AddAuthorization();
+        services.AddAuthorization(opt =>
+        {
+            var permissions = AlphaSoftAuthorizationExtension.GetAlphaPermissions();
+            for (int i = 0; i < permissions.Length; i++)
+            opt.AddPolicy(permissions[i], pol =>
+            {
+                    pol.AddRequirements(new AlphaSoftRequirements(permissions[i]));
+            });
+        });
     }
 }

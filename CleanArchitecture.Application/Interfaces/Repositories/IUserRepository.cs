@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace CleanArchitecture.Application.Interfaces.Repositories;
 
@@ -19,4 +20,6 @@ public interface IUserRepository
     Task<string> GenerateConfirmationToken(AppUser user);
     IQueryable<AppUser> GetAllUsersQuery(bool AsNoTracking = true);
     Task<IdentityResult> UpdateUser(AppUser user);
+    Task<IList<Claim>> GetUserClaims(AppUser user);
+    Task<IList<string>> GetUserRolesAsync(AppUser user);
 }

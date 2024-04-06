@@ -1,5 +1,6 @@
 ﻿using CleanArchitecture.Application.Contracts.Admin.Users.Requests;
 using CleanArchitecture.Application.Interfaces.Services;
+using CleanArchitecture.Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace CleanArchitecture.Presentation.Controllers.Admin;
 public class AdminUsersController(IUserService _userService) : ControllerBase
 {
     [HttpPost("create")]
+    [AlphaSoftAuthorization(AlphaSoftAdminPermissions.ViewUsersList)]
     public async Task<IActionResult> CreateUser([FromBody] AdminCreateUserRequest user)
     {
         var response = await _userService.CreateUserAsync(user);
@@ -17,7 +19,7 @@ public class AdminUsersController(IUserService _userService) : ControllerBase
     }
 
     [HttpGet("")]
-    [Authorize]
+    [AlphaSoftAuthorization(AlphaSoftAdminPermissions.CreateUser)]
     public async Task<IActionResult> GetAllUsers([FromQuery] AdminGetAllUsersRequest filter)
     {
         var users = await _userService.GetAllUsers(filter);

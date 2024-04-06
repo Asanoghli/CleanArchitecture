@@ -29,6 +29,7 @@ public class UnitOfWork : IUnitOfWork
     private IPagesRepository _pagesRepository = default!;
     private IUserRepository _userRepository = default!;
     private IAuthRepository _authRepository = default!;
+    private IRolesRepository _rolesRepository= default!;
     #endregion
 
     #region Public Fields
@@ -45,7 +46,7 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            if (_userRepository == null) _userRepository = new UserRepository(_userManager);
+            if (_userRepository == null) _userRepository = new UserRepository(_userManager,_roleManager);
 
             return _userRepository;
         }
@@ -58,6 +59,15 @@ public class UnitOfWork : IUnitOfWork
             if (_authRepository == null) _authRepository = new AuthRepository(_signInManager, _userManager,_roleManager);
 
             return _authRepository;
+        }
+    }
+    public IRolesRepository rolesRepository
+    {
+        get
+        {
+            if(_rolesRepository == null) _rolesRepository = new RolesRepository(_roleManager);
+
+            return _rolesRepository;
         }
     }
     #endregion
@@ -95,6 +105,7 @@ public class UnitOfWork : IUnitOfWork
             _signInManager = null!;
             _userManager = null!;
             _pagesRepository = null!;
+            _rolesRepository = null!;
             _dbContext = null!;
         }
 

@@ -2,10 +2,11 @@
 using CleanArchitecture.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
 
-public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
+public class UserRepository(UserManager<AppUser> userManager,RoleManager<AppRole> roleManager) : IUserRepository
 {
     public async Task<IdentityResult> AddToRole(AppUser user, string roleName)
     {
@@ -96,5 +97,17 @@ public class UserRepository(UserManager<AppUser> userManager) : IUserRepository
     public async Task<IdentityResult> UpdateUser(AppUser user)
     {
         return await userManager.UpdateAsync(user);
+    }
+
+    public async Task<IList<Claim>> GetUserClaims(AppUser user)
+    {
+        var claims = await userManager.GetClaimsAsync(user);
+
+        return claims;
+    }
+
+    public async Task<IList<string>> GetUserRolesAsync(AppUser user)
+    {
+        return await userManager.GetRolesAsync(user);
     }
 }

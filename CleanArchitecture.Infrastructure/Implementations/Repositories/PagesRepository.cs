@@ -4,9 +4,7 @@ using CleanArchitecture.Infrastructure.Context;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories
 {
-    public class PagesRepository(CleanArchitectureDbContext dbContext):
-        GenericRepository<Page>(dbContext),
-        IPagesRepository
+    public class PagesRepository(CleanArchitectureDbContext dbContext):IPagesRepository
     {
         public async Task<Guid> CreatePage(Page page)
         {
