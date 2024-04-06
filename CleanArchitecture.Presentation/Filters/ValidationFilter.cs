@@ -1,4 +1,5 @@
-﻿using CleanArchitecture.Infrastructure.Extensions;
+﻿using CleanArchitecture.Common.Implementations.Response;
+using CleanArchitecture.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -11,7 +12,8 @@ public class ValidationFilter : IAsyncActionFilter
         if (isInvalid)
         {
             var errors = context.ModelState.GetResponseErrors();
-            context.Result = new JsonResult(errors) { StatusCode = 403 };
+            var response = ResponseHelper<List<Error>>.Failed(errors);
+            context.Result = new JsonResult(response) { StatusCode = 200 };
         }
         else
         {

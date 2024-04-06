@@ -4,7 +4,9 @@ using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Implementations.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -13,10 +15,10 @@ namespace CleanArchitecture.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services,IConfiguration configuration)
     {
         AddDbContext(services);
-        AddIdentity(services);
+        AddIdentity(services,configuration);
         AddUIW(services);
         AddServices(services);
         return services;
@@ -35,7 +37,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<CleanArchitectureDbContext>();
     }
-    private static void AddIdentity(IServiceCollection services)
+    private static void AddIdentity(IServiceCollection services,IConfiguration configuration)
     {
         services.AddIdentity<AppUser, AppRole>(config =>
         {
@@ -48,7 +50,11 @@ public static class DependencyInjection
         .AddEntityFrameworkStores<CleanArchitectureDbContext>()
         .AddDefaultTokenProviders();
 
-        services.AddAuthentication().AddJwtBearer(opt =>
+        services.AddAuthentication(auth =>
+        {
+            auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(opt =>
         {
             opt.UseSecurityTokenValidators = true;
             opt.TokenValidationParameters = new TokenValidationParameters()
@@ -57,9 +63,12 @@ public static class DependencyInjection
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("WORLD"))
+                ValidIssuer = configuration.GetValue<string>("JWT:Issuer"),
+                ValidAudience = configuration.GetValue<string>("JWT:Audience"),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:Key")))
             };
 
         });
+        services.AddAuthorization();
     }
 }

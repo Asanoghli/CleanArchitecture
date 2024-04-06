@@ -15,7 +15,7 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add<ValidationFilter>(order: int.MinValue);
 });
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddCors(x => x.AddPolicy("MyPolicy", opt =>
 {
     opt.WithOrigins(["https://localhost:44359/", "localhost:44359/"]).AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
@@ -36,9 +36,10 @@ var app = builder.Build();
 //app.UseHttpsRedirection();
 app.UseCors("MyPolicy");
 app.UseMiddleware<CultureInfoMiddleware>();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseRouting();
+
 app.MapControllers();
 
 app.Run();

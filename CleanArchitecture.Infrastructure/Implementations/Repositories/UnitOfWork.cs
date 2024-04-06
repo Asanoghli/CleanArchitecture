@@ -12,11 +12,13 @@ public class UnitOfWork : IUnitOfWork
     private CleanArchitectureDbContext _dbContext;
     private SignInManager<AppUser> _signInManager;
     private UserManager<AppUser> _userManager;
-    public UnitOfWork(CleanArchitectureDbContext dbContext, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
+    private RoleManager<AppRole> _roleManager;
+    public UnitOfWork(CleanArchitectureDbContext dbContext, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
     {
         _dbContext = dbContext;
         _signInManager = signInManager;
         _userManager = userManager;
+        _roleManager = roleManager;
     }
     #endregion
 
@@ -53,7 +55,7 @@ public class UnitOfWork : IUnitOfWork
 
         get
         {
-            if (_authRepository == null) _authRepository = new AuthRepository(_signInManager, _userManager);
+            if (_authRepository == null) _authRepository = new AuthRepository(_signInManager, _userManager,_roleManager);
 
             return _authRepository;
         }

@@ -12,4 +12,5 @@ public interface IAuthRepository
     Task<AppUser> FindById(string Id);
     Task SignOutAsync();
     Task<IdentityResult> ConfirmEmail(string token, AppUser user);
+    Task<bool> CheckUserPsswordAsync(AppUser user,string password);
 }

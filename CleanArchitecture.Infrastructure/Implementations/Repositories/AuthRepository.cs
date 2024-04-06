@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Repositories;
 
-public class AuthRepository(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager) : IAuthRepository
+public class AuthRepository(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager) : IAuthRepository
 {
     public async Task<SignInResult> LoginWithPassword(AppUser user, string password, bool rememberMe)
     {
@@ -17,7 +17,6 @@ public class AuthRepository(SignInManager<AppUser> signInManager, UserManager<Ap
     {
         await signInManager.SignInAsync(user, rememberMe);
     }
-
     public async Task<AppUser> FindByEmail(string email)
     {
         var user = await userManager.FindByEmailAsync(email);
@@ -40,11 +39,17 @@ public class AuthRepository(SignInManager<AppUser> signInManager, UserManager<Ap
     {
         await signInManager.SignOutAsync();
     }
-    public async Task<IdentityResult> ConfirmEmail(string token,AppUser user)
+    public async Task<IdentityResult> ConfirmEmail(string token, AppUser user)
     {
-        var response = await userManager.ConfirmEmailAsync(user,token);
+        var response = await userManager.ConfirmEmailAsync(user, token);
 
         return response;
+    }
+    public async Task<bool> CheckUserPsswordAsync(AppUser user, string password)
+    {
+        var result = await signInManager.CheckPasswordSignInAsync(user, password,false);
+
+        return result.Succeeded;
     }
 
 

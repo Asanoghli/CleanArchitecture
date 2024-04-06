@@ -12,6 +12,8 @@ namespace CleanArchitecture.Infrastructure.Context.Configurations
             builder.HasMany(appuser => appuser.CreatedUsers).WithOne(createdUser => createdUser.CreatedByUser);
             builder.HasMany(appuser => appuser.UpdatedUsers).WithOne(createdUser => createdUser.UpdatedByUser);
             builder.HasMany(appuser => appuser.DeletedUsers).WithOne(createdUser => createdUser.DeletedByUser);
+
+            builder.Property(user => user.BirthDate).IsRequired(false);
         }
     }
 }

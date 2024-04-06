@@ -8,8 +8,7 @@ using CleanArchitecture.Common.Implementations.Response;
 using CleanArchitecture.Common.Interfaces.Responses;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Extensions;
-using PagedList;
-using PagedList.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
 
@@ -53,7 +52,7 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
 
         return ResponseHelper<EmptyResponse>.Success();
     }
-    public async Task<IResponse<IPagedList<AdminGetAllUsersResponse>>> GetAllUsers(AdminGetAllUsersRequest request)
+    public async Task<IResponse<List<AdminGetAllUsersResponse>>> GetAllUsers(AdminGetAllUsersRequest request)
     {
         var usersQuery = unitOfWork.userRepository.GetAllUsersQuery();
 
@@ -69,10 +68,8 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
         #endregion
 
         var mappedUsersQuery = _mapper.ProjectTo<AdminGetAllUsersResponse>(usersQuery);
-
-        var users = await mappedUsersQuery.ToPagedListAsync(request!.pageNumber, request.pageSize);
-
-        return ResponseHelper<IPagedList<AdminGetAllUsersResponse>>.Success(users);
+        var users = await mappedUsersQuery.ToListAsync();
+        return ResponseHelper<List<AdminGetAllUsersResponse>>.Success(users);
     }
     public async Task<IResponse<EmptyResponse>> ConfirmEmailAsync(Guid userId, string token)
     {

@@ -10,7 +10,8 @@ public class CultureInfoMiddleware : IMiddleware
         var containsCulture = context.Request.Headers.Any(header => header.Key.Equals("Content-Language"));
         if (containsCulture)
         {
-            var language = context.Request.Headers.First(header=>header!.Key!.Equals("Content-Language"))!.Value;
+            var languageStringValue = context.Request.Headers.First(header => header!.Key!.Equals("Content-Language"))!.Value;
+            var language = languageStringValue.ToString().ToLower();
             CultureInfo.CurrentCulture = SupportedCultureInfos.GetCultureInfo(language);
             CultureInfo.CurrentUICulture = SupportedCultureInfos.GetCultureInfo(language);
             Thread.CurrentThread.CurrentCulture = SupportedCultureInfos.GetCultureInfo(language);
