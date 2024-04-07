@@ -1,18 +1,17 @@
 ﻿using CleanArchitecture.Infrastructure.Authorization;
+using System.Security.Claims;
 
 namespace CleanArchitecture.Infrastructure.Extensions;
-    public static class AlphaSoftAuthorizationExtension
+public static class AlphaSoftAuthorizationExtension
+{
+    public static IEnumerable<Claim> GetAlphaPermissions()
     {
-        public static string[] GetAlphaPermissions()
-        {
-            var permissions = typeof(AlphaSoftAdminPermissions).GetFields();
-            var permissionsToReturn = new string[permissions.Length - 1];
-            for (int i = 1,k=0; i < permissions.Length; i++,k++)
-            {
-                permissionsToReturn[k] = permissions[i].Name;
-            }
+        var permissions = typeof(AlphaSoftAdminPermissions)
+            .GetNestedTypes().SelectMany(subClass => subClass.GetFields()).Select(fieldInfo=>fieldInfo.GetValue(null) as string) ;
 
-            return permissionsToReturn;
-        }
+        var claimpermissions = permissions.Select(permission => new Claim(AlphaSoftAdminPermissions.ADMIN, permission));
+
+        return claimpermissions;
     }
+}
 

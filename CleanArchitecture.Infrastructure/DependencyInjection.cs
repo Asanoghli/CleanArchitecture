@@ -6,6 +6,7 @@ using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Extensions;
 using CleanArchitecture.Infrastructure.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Implementations.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -44,6 +45,7 @@ public static class DependencyInjection
     private static void AddIdentity(IServiceCollection services,IConfiguration configuration)
     {
         services.AddSingleton<IAuthorizationHandler, AlphaSoftAuthorizationHandler>();
+        //services.AddScoped<IClaimsTransformation,AlphaSoftClaimTransformation>();
 
         services.AddIdentity<AppUser, AppRole>(config =>
         {
@@ -78,10 +80,10 @@ public static class DependencyInjection
         services.AddAuthorization(opt =>
         {
             var permissions = AlphaSoftAuthorizationExtension.GetAlphaPermissions();
-            for (int i = 0; i < permissions.Length; i++)
-            opt.AddPolicy(permissions[i], pol =>
+            foreach (var permission in permissions)
+            opt.AddPolicy(permission.Value, pol =>
             {
-                    pol.AddRequirements(new AlphaSoftRequirements(permissions[i]));
+                    pol.AddRequirements(new AlphaSoftRequirements(permission.Value));
             });
         });
     }

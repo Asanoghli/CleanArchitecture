@@ -2,6 +2,7 @@ using CleanArchitecture.Application;
 using CleanArchitecture.Common.Localizations;
 using CleanArchitecture.Infrastructure;
 using CleanArchitecture.Infrastructure.Middlewares;
+using CleanArchitecture.Infrastructure.Seed;
 using CleanArchitecture.Presentation.Filters;
 using Microsoft.AspNetCore.Localization;
 
@@ -20,7 +21,6 @@ builder.Services.AddCors(x => x.AddPolicy("MyPolicy", opt =>
 {
     opt.WithOrigins(["https://localhost:44359/", "localhost:44359/"]).AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
 }));
-
 builder.Services.AddLocalization();
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -28,9 +28,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedCultures = SupportedCultureInfos.GetAllCultureInfoValues();
     options.SupportedUICultures = SupportedCultureInfos.GetAllCultureInfoValues(); ;
 });
-
 var app = builder.Build();
-
+await app.Services.Seed();
 // Configure the HTTP request pipeline.
 
 //app.UseHttpsRedirection();

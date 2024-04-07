@@ -6,7 +6,7 @@ namespace CleanArchitecture.Presentation.Controllers;
 
 public class AuthController(IAuthService authService) : ControllerBase
 {
-    [HttpGet("login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest userCredintials)
     {
         var response = await authService.Login(userCredintials);
