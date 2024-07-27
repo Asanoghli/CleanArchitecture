@@ -37,7 +37,7 @@ public class AuthService(IUnitOfWork unitOfWork, IConfiguration configuration) :
         var isValid = await unitOfWork.authRepository.CheckUserPsswordAsync(user, request.password);
         if (!isValid) return ResponseHelper<AdminAuthLoginResponse>.Failed(new Error { errorKey = ErrorCodes.INVALID_USERNAME_OR_PASSWORD, errorMessage = ResourceLocalizer.UserNotFound });
 
-        var claims = new Claim[] { new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()) };
+        var claims = new Claim[] { new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()) };
         unitOfWork.Dispose();
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:Key")));
@@ -48,7 +48,7 @@ public class AuthService(IUnitOfWork unitOfWork, IConfiguration configuration) :
             issuer: issuer,
             audience: audience,
             claims: claims,
-            expires: DateTime.Now.AddHours(1),
+            expires: request.rememberMe ? DateTime.Now.AddYears(1) : DateTime.Now.AddHours(2),
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 
@@ -65,5 +65,32 @@ public class AuthService(IUnitOfWork unitOfWork, IConfiguration configuration) :
     public async Task SignOut()
     {
         await unitOfWork.authRepository.SignOutAsync();
+    }
+    public async Task<bool> ValidateToken(string token)
+    {
+        var validationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = configuration.GetValue<string>("JWT:Issuer"),
+            ValidAudience = configuration.GetValue<string>("JWT:Audience"),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:Key")))
+        };
+
+        try
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+            JwtSecurityToken jwt = (JwtSecurityToken)validatedToken;
+
+            return await Task.FromResult(true);
+        }
+        catch
+        {
+            // Log the reason why the token is not valid
+            return await Task.FromResult(false);
+        }
     }
 }

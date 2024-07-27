@@ -77,6 +77,7 @@ public static class DependencyInjection
             };
 
         });
+
         services.AddAuthorization(opt =>
         {
             var permissions = AlphaSoftAuthorizationExtension.GetAlphaPermissions();

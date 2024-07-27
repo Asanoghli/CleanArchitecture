@@ -10,4 +10,5 @@ public interface IAuthService
     Task<IResponse<AdminAuthLoginResponse>> Login(LoginRequest request);
     Task SignOut();
     Task<IResponse<EmptyResponse>> ConfirmEmail(string token, Guid userId);
+    public Task<bool> ValidateToken(string token);
 }

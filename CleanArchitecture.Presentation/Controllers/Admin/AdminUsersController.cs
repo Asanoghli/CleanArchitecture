@@ -1,6 +1,8 @@
 ﻿using CleanArchitecture.Application.Contracts.Admin.Users.Requests;
 using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Infrastructure.Authorization;
+using CleanArchitecture.Infrastructure.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Presentation.Controllers.Admin;

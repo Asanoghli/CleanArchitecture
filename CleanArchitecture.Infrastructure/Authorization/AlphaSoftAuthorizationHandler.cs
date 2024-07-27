@@ -9,6 +9,11 @@ public class AlphaSoftAuthorizationHandler(IServiceProvider serviceProvider) : A
 {
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, AlphaSoftRequirements requirement)
     {
+        if (context.User.Identity == null || !context.User.Identity.IsAuthenticated)
+        {
+            context.Fail();
+            return;
+        }
         var scope = serviceProvider.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
