@@ -1,8 +1,7 @@
 ﻿using CleanArchitecture.Application.Contracts.Admin.Users.Requests;
 using CleanArchitecture.Application.Interfaces.Services;
 using CleanArchitecture.Infrastructure.Authorization;
-using CleanArchitecture.Infrastructure.Filters;
-using Microsoft.AspNetCore.Authorization;
+using CleanArchitecture.Presentation.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArchitecture.Presentation.Controllers.Admin;
@@ -12,7 +11,8 @@ public class AdminUsersController(IUserService _userService) : ControllerBase
 {
     [HttpPost("create")]
     [AlphaSoftAuthorization(AlphaSoftAdminPermissions.Users.CreateUser)]
-    public async Task<IActionResult> CreateUser([FromBody] AdminCreateUserRequest user)
+    [TypeFilter<ValidationFilter>(Order =int.MinValue)]
+    public async Task<IActionResult> CreateUser([FromBody] AdminCreateUserRequest? user)
     {
         var response = await _userService.CreateUserAsync(user);
 

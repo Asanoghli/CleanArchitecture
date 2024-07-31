@@ -9,18 +9,18 @@ public class AdminCreateUserRequest
     public string? lastName { get; set; }
     public DateOnly? birthDate { get; set; }
     public string? email { get; set; }
-    public string? userName { get; set; }
+    //public string? userName { get; set; }
     public string? password { get; set; }
 }
 public class AdminCreateUserRequestValidation : AbstractValidator<AdminCreateUserRequest>
 {
     public AdminCreateUserRequestValidation()
     {
-        RuleFor(user => user.userName)
-            .NotEmpty()
-            .WithMessage(ResourceLocalizer.UserUsernameIsEmpty)
-            .MinimumLength(RequestConstants.MINIMUM_USERNAME_LENGTH)
-            .WithMessage(string.Format(ResourceLocalizer.UserUsernameIsTooShort, RequestConstants.MINIMUM_USERNAME_LENGTH));
+        //RuleFor(user => user.userName)
+        //    .NotEmpty()
+        //    .WithMessage(ResourceLocalizer.UserUsernameIsEmpty)
+        //    .MinimumLength(RequestConstants.MINIMUM_USERNAME_LENGTH)
+        //    .WithMessage(string.Format(ResourceLocalizer.UserUsernameIsTooShort, RequestConstants.MINIMUM_USERNAME_LENGTH));
 
         RuleFor(user => user.firstName)
             .NotEmpty()

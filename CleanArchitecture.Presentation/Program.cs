@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<CultureInfoMiddleware>();
 builder.Services.AddControllers(opt =>
 {
-    opt.Filters.Add<ValidationFilter>(order: int.MinValue);
+    opt.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
 });
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);

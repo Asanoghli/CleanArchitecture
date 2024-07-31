@@ -6,7 +6,6 @@ using CleanArchitecture.Infrastructure.Context;
 using CleanArchitecture.Infrastructure.Extensions;
 using CleanArchitecture.Infrastructure.Implementations.Repositories;
 using CleanArchitecture.Infrastructure.Implementations.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -54,6 +53,7 @@ public static class DependencyInjection
             config.Password.RequiredLength = 6;
             config.Password.RequireDigit = false;
             config.Password.RequireUppercase = false;
+            config.User.RequireUniqueEmail = true;
         })
         .AddEntityFrameworkStores<CleanArchitectureDbContext>()
         .AddDefaultTokenProviders();
@@ -75,7 +75,6 @@ public static class DependencyInjection
                 ValidAudience = configuration.GetValue<string>("JWT:Audience"),
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:Key")))
             };
-
         });
 
         services.AddAuthorization(opt =>

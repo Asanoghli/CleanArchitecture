@@ -18,7 +18,7 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
     {
 
         var appUser = _mapper.Map<AppUser>(user);
-
+        appUser.UserName = Guid.NewGuid().ToString();
         var result = await unitOfWork.userRepository.CreateAsync(appUser, user.password);
 
         if (!result.Succeeded)

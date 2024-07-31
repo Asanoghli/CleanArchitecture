@@ -14,6 +14,7 @@ public class AlphaSoftAuthorizationHandler(IServiceProvider serviceProvider) : A
             context.Fail();
             return;
         }
+
         var scope = serviceProvider.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();

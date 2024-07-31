@@ -79,18 +79,11 @@ public class AuthService(IUnitOfWork unitOfWork, IConfiguration configuration) :
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("JWT:Key")))
         };
 
-        try
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
-            JwtSecurityToken jwt = (JwtSecurityToken)validatedToken;
 
-            return await Task.FromResult(true);
-        }
-        catch
-        {
-            // Log the reason why the token is not valid
-            return await Task.FromResult(false);
-        }
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var result = await tokenHandler.ValidateTokenAsync(token, validationParameters);
+
+            return result.IsValid;
+
     }
 }
