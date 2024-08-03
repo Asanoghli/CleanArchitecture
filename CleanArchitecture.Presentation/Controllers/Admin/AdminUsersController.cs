@@ -36,4 +36,13 @@ public class AdminUsersController(IUserService _userService) : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("check-email")]
+    [AlphaSoftAuthorization(AlphaSoftAdminPermissions.Users.CreateUser)]
+    public async Task<IActionResult> CheckEmail(string email)
+    {
+        var response = await _userService.CheckEmailAddress(email);
+
+        return Ok(response);
+    }
+
 }

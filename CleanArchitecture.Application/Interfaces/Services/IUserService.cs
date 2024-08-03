@@ -11,7 +11,7 @@ public interface IUserService
     Task<IResponse<EmptyResponse>> UpdateUserAsync(AdminUpdateUserRequest user);
     Task<IResponse<EmptyResponse>> ConfirmEmailAsync(Guid userId, string token);
     Task<IResponse<string>> GenerateConfirmationToken(Guid userId);
-    Task<IResponse<List<AdminGetAllUsersResponse>>> GetAllUsers(AdminGetAllUsersRequest request);
+    Task<IPagedData<AdminGetAllUsersResponse>> GetAllUsers(AdminGetAllUsersRequest request);
     Task<IResponse<EmptyResponse>> ChangePasswordAsync(Guid userId, string oldPassword, string newPassword);
-
+    Task<IResponse<AdminCheckEmailResponse>> CheckEmailAddress(string email);
 }

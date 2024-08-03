@@ -34,6 +34,7 @@ public static class ResponseHelper<T>
 
         return response;
     }
+
     public static IResponse<T> Success()
     {
         var response = new Response<T>();

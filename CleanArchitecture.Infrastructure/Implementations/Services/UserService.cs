@@ -8,7 +8,7 @@ using CleanArchitecture.Common.Implementations.Response;
 using CleanArchitecture.Common.Interfaces.Responses;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Extensions;
-using Microsoft.EntityFrameworkCore;
+using CleanArchitecture.Common.Extensions;
 
 namespace CleanArchitecture.Infrastructure.Implementations.Services;
 
@@ -52,8 +52,10 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
 
         return ResponseHelper<EmptyResponse>.Success();
     }
-    public async Task<IResponse<List<AdminGetAllUsersResponse>>> GetAllUsers(AdminGetAllUsersRequest request)
+    public async Task<IPagedData<AdminGetAllUsersResponse>> GetAllUsers(AdminGetAllUsersRequest request)
     {
+        var response = default(IPagedData<AdminGetAllUsersResponse>?);
+
         var usersQuery = unitOfWork.userRepository.GetAllUsersQuery();
 
         #region Filters
@@ -66,10 +68,12 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
             if (request.birthDate.HasValue) usersQuery = usersQuery.Where(user => user.BirthDate != null && user.BirthDate.Value.Equals(request.birthDate.Value));
         }
         #endregion
-
         var mappedUsersQuery = _mapper.ProjectTo<AdminGetAllUsersResponse>(usersQuery);
-        var users = await mappedUsersQuery.ToListAsync();
-        return ResponseHelper<List<AdminGetAllUsersResponse>>.Success(users);
+
+        response = await mappedUsersQuery.ToPagedData(request.pageSize, request.pageNumber);
+
+
+        return response;
     }
     public async Task<IResponse<EmptyResponse>> ConfirmEmailAsync(Guid userId, string token)
     {
@@ -111,5 +115,16 @@ public class UserService(IUnitOfWork unitOfWork, IMapper _mapper) : IUserService
         }
 
         return ResponseHelper<EmptyResponse>.Success();
+    }
+    public async Task<IResponse<AdminCheckEmailResponse>> CheckEmailAddress(string email)
+    {
+        var response = new AdminCheckEmailResponse();
+
+        var user = await unitOfWork.userRepository.FindByEmail(email);
+
+        if (user == null) return ResponseHelper<AdminCheckEmailResponse>.Success(new AdminCheckEmailResponse { isExists = false });
+
+        return ResponseHelper<AdminCheckEmailResponse>.Success(new AdminCheckEmailResponse { userId = user.Id, isExists = true });
+
     }
 }
